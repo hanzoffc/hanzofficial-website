@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hanzstore.id</title>
+    <style>
+        /* Gaya CSS untuk tampilan */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #e0e0e0; /* Warna teks terang */
+            text-align: center;
+            background: linear-gradient(270deg, #ff0000, #00ff00, #0000ff); /* Gradien awal */
+            background-size: 600% 600%; /* Ukuran gradien agar bisa dianimasikan */
+            animation: rgbChange 15s ease infinite alternate,
+                       blinkEffect 3s ease-in-out infinite; /* Animasi RGB dan kedip */
+        }
+
+        /* --- Animasi RGB Perlahan --- */
+        @keyframes rgbChange {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* --- Animasi Kedip-Kedip Pelan --- */
+        @keyframes blinkEffect {
+            0% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.95; /* Sedikit transparan untuk efek kedip pelan */
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* Gaya untuk Banner Utama (sekarang sebagai <img>) */
+        .main-banner {
+            width: 100%;
+            height: 200px; /* Tinggi banner, sesuaikan jika perlu */
+            object-fit: cover; /* Pastikan gambar mengisi area tanpa terdistorsi */
+            display: block; /* Menghilangkan spasi ekstra di bawah gambar */
+            margin-bottom: -75px; /* Menggeser gambar profil ke atas menumpang di banner */
+            position: relative; /* Untuk z-index */
+            z-index: 1; /* Pastikan banner di bawah gambar profil */
+        }
+
+        /* Wrapper untuk gambar profil bulat */
+        .profile-image-wrapper {
+            position: relative;
+            z-index: 10; /* Pastikan gambar profil di atas banner dan konten */
+            /* Margin-top dan margin-bottom akan diatur secara otomatis oleh flow */
+        }
+
+        .profile-image {
+            width: 150px; /* Ukuran gambar bulat yang konsisten */
+            height: 150px; /* Harus sama dengan width untuk lingkaran sempurna */
+            object-fit: cover; /* Pastikan gambar mengisi lingkaran tanpa terdistorsi */
+            border-radius: 50%; /* Membuat gambar menjadi bulat */
+            border: 5px solid #8a2be2; /* Border ungu cerah */
+            box-shadow: 0 0 15px rgba(0,0,0,0.5); /* Bayangan untuk menonjolkan */
+            display: block;
+            margin: 0 auto; /* Tengahkankan gambar */
+        }
+
+        .content {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(26, 26, 46, 0.9); /* Latar belakang gelap semi-transparan */
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Bayangan untuk menonjolkan konten */
+            position: relative;
+            z-index: 5; /* Agar konten di atas banner */
+            padding-top: 100px; /* Tambahkan padding agar judul tidak terhalang gambar profil */
+            margin-top: -75px; /* Menggeser konten ke atas agar menumpang pada gambar profil */
+        }
+
+        h1 {
+            color: #8a2be2; /* Ungu cerah ala anime */
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Efek bayangan teks */
+        }
+
+        h2 { /* Gaya untuk judul Daftar Produk */
+            color: #00bcd4; /* Warna biru muda */
+            margin-top: 30px;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+        }
+
+        .product-list {
+            text-align: left; /* Teks daftar produk rata kiri */
+            max-width: 600px;
+            margin: 0px auto 30px auto; /* Tengahkankan daftar dan beri margin bawah */
+            padding: 0 20px;
+        }
+
+        .product-list ul {
+            list-style-type: none; /* Hilangkan bullet default */
+            padding: 0;
+        }
+
+        .product-list li {
+            background-color: rgba(40, 40, 60, 0.7); /* Latar belakang item produk */
+            margin-bottom: 10px;
+            padding: 12px 15px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between; /* Menata teks dan harga */
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            transition: transform 0.2s ease;
+        }
+
+        .product-list li:hover {
+            transform: translateY(-2px); /* Efek naik saat hover */
+        }
+
+        .product-list li strong {
+            color: #ffeb3b; /* Warna kuning untuk nama produk */
+        }
+
+        .product-list li span {
+            color: #25D366; /* Warna hijau untuk harga */
+            font-weight: bold;
+        }
+
+
+        p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .whatsapp-button-container {
+            margin-top: 30px;
+        }
+
+        .action-button { /* Kelas umum untuk semua tombol aksi */
+            display: inline-block;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px; /* Bentuk tombol bulat */
+            text-decoration: none; /* Hilangkan garis bawah link */
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease, transform 0.3s ease; /* Animasi hover */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Bayangan tombol */
+            margin: 5px; /* Tambahkan sedikit margin agar tidak terlalu rapat di mobile */
+        }
+
+        .action-button:hover {
+            transform: translateY(-3px); /* Efek naik sedikit saat hover */
+        }
+
+        .action-button:active {
+            transform: translateY(0); /* Kembali normal saat diklik */
+        }
+
+        /* Gaya spesifik untuk tombol WhatsApp */
+        .whatsapp-button {
+            background-color: #25D366; /* Warna hijau WhatsApp */
+        }
+
+        .whatsapp-button:hover {
+            background-color: #1DA851; /* Warna lebih gelap saat hover */
+        }
+
+        /* Gaya spesifik untuk tombol WhatsApp kedua */
+        .whatsapp-button.rb { /* Menggunakan kelas tambahan untuk RB */
+            background-color: #075E54;
+        }
+
+        .whatsapp-button.rb:hover {
+            background-color: #054a42; /* Warna lebih gelap saat hover */
+        }
+
+        /* Gaya spesifik untuk tombol Telegram */
+        .telegram-button {
+            background-color: #0088CC; /* Warna biru Telegram */
+        }
+
+        .telegram-button:hover {
+            background-color: #006699; /* Warna lebih gelap saat hover */
+        }
+
+        .social-links {
+            margin-top: 25px;
+            font-size: 0.9em;
+            color: #b0b0b0;
+        }
+
+        .social-links a {
+            color: #b0b0b0;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #8a2be2;
+        }
+
+        /* Gaya untuk waktu dan hari real-time */
+        .realtime-info {
+            margin-top: 40px;
+            padding: 15px;
+            background-color: rgba(40, 40, 60, 0.7);
+            border-radius: 8px;
+            font-size: 1em;
+            color: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            display: inline-block; /* Agar lebarnya sesuai konten */
+            max-width: 90%; /* Batasi lebar di mobile */
+        }
+
+        .realtime-info #currentDateTime {
+            font-weight: bold;
+            color: #ffeb3b; /* Kuning terang untuk waktu */
+        }
+
+        /* Gaya untuk Footer */
+        .footer-info {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: rgba(15, 15, 30, 0.9); /* Latar belakang lebih gelap dari konten */
+            border-top: 1px solid #8a2be2; /* Garis pemisah */
+            font-size: 0.85em;
+            color: #b0b0b0;
+            line-height: 1.8;
+            border-bottom-left-radius: 10px; /* Cocokkan dengan content box */
+            border-bottom-right-radius: 10px;
+            max-width: 800px; /* Cocokkan dengan content box */
+            margin: 0 auto; /* Tengahkankan */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Bayangan untuk menonjolkan */
+        }
+        .footer-info p {
+            margin: 5px 0; /* Jarak antar baris teks di footer */
+        }
+
+        /* Gaya untuk tombol musik ON/OFF */
+        .music-toggle-button {
+            display: inline-block;
+            background-color: #8a2be2; /* Ungu */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            margin-bottom: 20px; /* Jarak dari elemen di bawahnya */
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            text-transform: uppercase; /* Agar teks tombol konsisten */
+            font-weight: bold;
+        }
+
+        .music-toggle-button:hover {
+            background-color: #6a1ba0; /* Ungu lebih gelap saat hover */
+            transform: translateY(-2px);
+        }
+
+        .music-toggle-button:active {
+            transform: translateY(0);
+        }
+
+        /* Gaya khusus saat musik OFF (opsional, bisa diatur warna berbeda) */
+        .music-toggle-button.off {
+            background-color: #cc3333; /* Warna merah untuk OFF */
+        }
+        .music-toggle-button.off:hover {
+            background-color: #a02a2a;
+        }
+
+
+        /* --- Media Queries untuk Responsivitas --- */
+
+        /* Untuk layar dengan lebar maksimum 768px (Tablet dan Mobile) */
+        @media screen and (max-width: 768px) {
+            .main-banner {
+                height: 150px; /* Tinggi banner lebih kecil di tablet/mobile */
+                margin-bottom: -60px; /* Sesuaikan margin-bottom untuk gambar profil 120px */
+            }
+
+            .profile-image {
+                width: 120px; /* Ukuran gambar bulat lebih kecil di tablet/mobile */
+                height: 120px;
+                border-width: 4px; /* Border sedikit lebih tipis */
+            }
+
+            .content {
+                padding: 15px; /* Kurangi padding untuk layar lebih kecil */
+                margin: 0 15px; /* Tambahkan margin samping agar tidak terlalu mepet */
+                padding-top: 80px; /* Sesuaikan padding-top agar judul tidak terhalang */
+                margin-top: -60px; /* Sesuaikan margin-top konten */
+            }
+
+            h1 {
+                font-size: 1.8em; /* Kecilkan ukuran judul */
+            }
+
+            p {
+                font-size: 0.95em; /* Sesuaikan ukuran paragraf */
+            }
+
+            .product-list {
+                padding: 0 10px; /* Kurangi padding daftar produk */
+            }
+
+            .product-list li {
+                padding: 10px 12px;
+                font-size: 0.9em;
+            }
+
+            .action-button { /* Gunakan kelas umum untuk responsivitas tombol */
+                padding: 12px 25px; /* Kurangi padding tombol */
+                font-size: 1em; /* Kecilkan ukuran font tombol */
+                display: block; /* Tombol jadi satu kolom di mobile */
+                width: calc(100% - 10px); /* Atur lebar tombol agar responsif */
+                max-width: 300px; /* Batasi lebar maksimum tombol */
+                margin: 10px auto; /* Tengahkankan tombol dan beri jarak vertikal */
+            }
+
+            .social-links a {
+                display: block; /* Jadikan link sosial satu per satu baris */
+                margin: 5px 0; /* Beri jarak vertikal antar link */
+            }
+            .realtime-info {
+                font-size: 0.9em;
+                padding: 10px;
+            }
+            .footer-info {
+                font-size: 0.8em;
+                padding: 15px;
+                margin: 0 15px; /* Sesuaikan margin agar sejajar dengan content */
+                border-radius: 0 0 10px 10px; /* Bulatkan hanya sudut bawah */
+            }
+        }
+
+        /* Untuk layar dengan lebar maksimum 480px (Hanya Mobile) */
+        @media screen and (max-width: 480px) {
+            .main-banner {
+                height: 120px; /* Tinggi banner lebih kecil lagi di mobile */
+                margin-bottom: -50px; /* Sesuaikan margin-bottom untuk gambar profil 100px */
+            }
+
+            .profile-image {
+                width: 100px; /* Ukuran gambar bulat lebih kecil lagi di mobile */
+                height: 100px;
+                border-width: 3px;
+            }
+
+            .content {
+                padding: 10px;
+                margin: 0 10px;
+                padding-top: 70px; /* Sesuaikan padding-top agar judul tidak terhalang */
+                margin-top: -50px; /* Sesuaikan margin-top konten */
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            p {
+                font-size: 0.9em;
+            }
+
+            .product-list {
+                padding: 0 5px; /* Kurangi padding daftar produk lebih kecil lagi */
+            }
+
+            .product-list li {
+                padding: 8px 10px;
+                font-size: 0.85em;
+            }
+
+            .action-button { /* Gunakan kelas umum untuk responsivitas tombol */
+                padding: 10px 20px;
+                font-size: 0.9em;
+                width: calc(100% - 20px); /* Atur lebar tombol agar responsif */
+            }
+            .realtime-info {
+                font-size: 0.8em;
+                padding: 8px;
+            }
+            .footer-info {
+                font-size: 0.75em;
+                padding: 10px;
+                margin: 0 10px;
+            }
+            .music-toggle-button {
+                padding: 8px 15px;
+                font-size: 0.8em;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <audio id="backgroundAudio" src="https://files.catbox.moe/k3665h.mp3" loop></audio>
+    <img src="https://files.catbox.moe/gobu1e.png" alt="Hanz Store Banner" class="main-banner">
+
+
+    <div class="profile-image-wrapper">
+        <img src="https://files.catbox.moe/lfiol3.jpg" alt="Hanz Store Profile" class="profile-image">
+    </div>
+
+    <div class="content">
+        <button id="musicToggleButton" class="music-toggle-button off">
+            Musik OFF
+        </button>
+
+        <h1>Selamat Datang di Hanz Store!</h1>
+        <p>Kami menyediakan berbagai produk seperti panel untuk run bot WhatsApp, Nomor kosong, script-script bot WhatsApp bagus dan lain-lain.</p>
+        <p>Kami menjamin kualitas semua produk kami, ayo beli produk kami!</p>
+
+        <h2>Daftar Produk Kami</h2>
+        <div class="product-list">
+            <ul>
+                <li><strong>Panel Run Bot WhatsApp</strong> <span>Mulai Rp 1.000</span></li>
+                <li><strong>Nomor Kosong WhatsApp Indonesia</strong> <span>Mulai Rp 5.000</span></li>
+                <li><strong>Script Bot WhatsApp (Fall Botz sc No enc)</strong> <span>Mulai Rp 55.000</span></li>
+            </ul>
+        </div>
+        <div class="whatsapp-button-container">
+            <a href="https://wa.me/6283869267146" class="action-button whatsapp-button" target="_blank">
+                Hubungi Kami via WhatsApp JP
+            </a>
+            <p style="margin-top: 15px; font-size: 0.9em;">Atau:</p>
+             <a href="https://wa.me/6283142475796" class="action-button whatsapp-button rb" target="_blank">
+                Hubungi Kami via WhatsApp RB
+            </a>
+            <p style="margin-top: 15px; font-size: 0.9em;">Atau:</p>
+            <a href="https://t.me/hanzzstorerawr" class="action-button telegram-button" target="_blank">
+                Hubungi Kami via Telegram
+            </a>
+        </div>
+
+        <div class="social-links">
+            <p>Ikuti kami di media sosial:</p>
+            <a href="https://www.instagram.com/hanzstore16" target="_blank">Instagram: @hanzstore16</a>
+        </div>
+
+        <div class="realtime-info">
+            <span id="currentDateTime"></span>
+        </div>
+
+    </div>
+
+    <div class="footer-info">
+        <p>&copy; Hanz Store - 2025</p>
+        <p>Owner : Hanz Store</p>
+        <p>Dev : Hanz X Gemini</p>
+        <p>Host : Infinityfree</p>
+    </div>
+
+    <script>
+        // Fungsi untuk memperbarui waktu dan hari real-time
+        function updateDateTime() {
+            const now = new Date();
+
+            // Opsi format tanggal
+            const optionsDate = {
+                weekday: 'long', // Nama hari lengkap (e.g., Sabtu)
+                year: 'numeric',
+                month: 'long',   // Nama bulan lengkap (e.g., Juni)
+                day: 'numeric'
+            };
+
+            // Opsi format waktu
+            const optionsTime = {
+                hour: '2-digit',   // Jam dua digit (e.g., 23)
+                minute: '2-digit', // Menit dua digit (e.g., 30)
+                second: '2-digit', // Detik dua digit (e.g., 46)
+                hour12: false,     // Format 24 jam
+                timeZoneName: 'short' // Nama zona waktu singkat (e.g., WIB)
+            };
+
+            // Format tanggal dan waktu
+            const formattedDate = new Intl.DateTimeFormat('id-ID', optionsDate).format(now);
+            const formattedTime = new Intl.DateTimeFormat('id-ID', optionsTime).format(now);
+
+            const dateTimeString = `${formattedDate}, Pukul ${formattedTime}`;
+            document.getElementById('currentDateTime').textContent = dateTimeString;
+        }
+
+        // Panggil fungsi sekali saat halaman dimuat
+        updateDateTime();
+
+        // Perbarui setiap detik
+        setInterval(updateDateTime, 1000);
+
+        // JavaScript untuk Kontrol Audio ON/OFF
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const audio = document.getElementById('backgroundAudio');
+            const musicToggleButton = document.getElementById('musicToggleButton');
+            let isPlaying = false; // Status awal: musik OFF
+
+            // Fungsi untuk mengupdate teks dan kelas tombol
+            function updateToggleButton() {
+                if (isPlaying) {
+                    musicToggleButton.textContent = 'Musik ON';
+                    musicToggleButton.classList.remove('off');
+                } else {
+                    musicToggleButton.textContent = 'Musik OFF';
+                    musicToggleButton.classList.add('off');
+                }
+            }
+
+            // Atur status awal tombol saat halaman dimuat
+            updateToggleButton(); // Awalnya akan menampilkan "Musik OFF"
+
+            musicToggleButton.addEventListener('click', () => {
+                if (isPlaying) {
+                    audio.pause();
+                } else {
+                    audio.play().catch(error => {
+                        console.log("Gagal memutar audio: " + error);
+                        // Tidak perlu alert jika ini terjadi secara internal, tombol akan tetap OFF
+                    });
+                }
+                isPlaying = !isPlaying; // Balik status
+                updateToggleButton(); // Update teks dan gaya tombol
+            });
+
+            // Tambahan: Sinkronisasi status tombol jika audio dihentikan/dimulai dari luar kontrol kita
+            audio.addEventListener('play', () => {
+                isPlaying = true;
+                updateToggleButton();
+            });
+            audio.addEventListener('pause', () => {
+                isPlaying = false;
+                updateToggleButton();
+            });
+            // Karena ada 'loop', event 'ended' tidak akan sering terpicu, tapi tetap dijaga
+            audio.addEventListener('ended', () => {
+                if (audio.loop) { // Jika loop, status harus tetap ON
+                    isPlaying = true; // Musik akan segera mulai lagi
+                } else {
+                    isPlaying = false; // Musik sudah selesai
+                }
+                updateToggleButton();
+            });
+        });
+    </script>
+
+</body>
+</html>

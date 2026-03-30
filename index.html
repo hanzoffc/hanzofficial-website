@@ -554,6 +554,26 @@
             });
         });
     </script>
+<script>
+  let clickCount = 0;
+  
+  // Memantau setiap klik di seluruh halaman web
+  document.addEventListener('click', function(event) {
+    clickCount++;
+    
+    // Jika klik melebihi 5 kali dalam waktu singkat
+    if (clickCount > 5) {
+      alert("Aktivitas klik tidak wajar terdeteksi. Mohon pelan-pelan!");
+      event.preventDefault(); // Mencegah aksi klik diteruskan
+      event.stopPropagation(); // Menghentikan event agar tidak memicu script lain (termasuk iklan)
+    }
 
+    // Reset hitungan klik kembali ke 0 setiap 2 detik
+    setTimeout(() => {
+      clickCount = 0;
+    }, 2000);
+    
+  }, true); // 'true' agar dijalankan di fase awal sebelum event lain
+</script>
 </body>
 </html>
